@@ -11,7 +11,7 @@ const Productos = [
 
 //Constantes a utilizar
 const contenedorProductos = document.querySelector("#contenedorProductos")
-const contenedorCarrito = document.getElementById  ("carrito-contenedor")
+const contenedorCarrito = document.getElementById("carrito-contenedor")
 const contadorCarrito = document.querySelector("#contadorCarrito")
 const botonVaciar = document.querySelector("#vaciarCarrito")
 const precioTotal = document.querySelector("#precioTotal")
@@ -19,13 +19,23 @@ const precioTotal = document.querySelector("#precioTotal")
 let carrito = [] //carrito
 
 
-//JSON GET
-document.addEventListener('DOMContentLoaded', () => {
+
+/* document.addEventListener('DOMContentLoaded', () => {
     if (localStorage.getItem('carrito')){
         carrito = JSON.parse(localStorage.getItem('carrito'))
         actualizarCarrito()
     }
 })
+ */
+
+//JSON GET
+//operador avanzado if
+document.addEventListener('DOMContentLoaded', () => {
+localStorage.getItem('carrito')? (carrito = JSON.parse(localStorage.getItem('carrito')), actualizarCarrito()): null
+})
+
+
+
 
 //Inyecto HTML al DOM
 Productos.forEach((producto) => {
@@ -54,14 +64,14 @@ Productos.forEach((producto) => {
         agregarAlCarrito(producto.id)
     }); 
 
-});
+}); 
 
 
 //Func para agregar al carrito (Valga la redundancia)
 const agregarAlCarrito = (prodID) =>{
 //Verifica si no se ha añadido el mismo producto anteriormente
     const existe = carrito.some(prod => prod.id === prodID)
-    if (existe) {
+/*  if (existe) {
         const prod = carrito.map (prod => {
             if (prod.id === prodID){
                 prod.cant++
@@ -70,7 +80,13 @@ const agregarAlCarrito = (prodID) =>{
     }else{
         const item = Productos.find ((producto) => producto.id === prodID)
         carrito.push(item)
-    }
+    }  */
+    //defino las variables antes porque dentro del operador ternario no me deja
+    let prod;
+    let item;
+    existe? (prod = carrito.map (prod => {
+        if(prod.id === prodID) prod.cant++
+    })):(item = Productos.find ((producto) => producto.id === prodID), carrito.push(item))
     actualizarCarrito()
 }
 
@@ -98,7 +114,7 @@ const actualizarCarrito = () => {
         localStorage.setItem('carrito', JSON.stringify(carrito));//JSON setItem backupea al agregar cada producto
     })
     contadorCarrito.innerText = carrito.length //Actualiza el contador de productos
-    precioTotal.innerText = carrito.reduce((acc, prod) => acc + prod.precio, 0) //Suma el precio
+    precioTotal.innerText = carrito.reduce((acc, prod) => acc + prod.precio * prod.cant, 0) //Suma el precio
     localStorage.setItem('carrito', JSON.stringify(carrito))//JSON setItem backupea al ELIMINAR todos los productos
 }
 

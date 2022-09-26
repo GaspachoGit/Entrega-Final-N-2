@@ -22,6 +22,10 @@
     cursor: pointer;
 }
 
+.precioProducto{
+    font-size: 15px;
+}
+
 /*:::Fin Boton-Modal:::*/
 
 /*:::Ventana Modal:::*/
@@ -95,6 +99,7 @@
     padding: 5px 10px;
     display: flex;
     justify-content: space-between;
+    font-size: 15px;
 }
 
 .boton-eliminar {
