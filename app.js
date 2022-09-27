@@ -18,24 +18,11 @@ const precioTotal = document.querySelector("#precioTotal")
 
 let carrito = [] //carrito
 
-
-
-/* document.addEventListener('DOMContentLoaded', () => {
-    if (localStorage.getItem('carrito')){
-        carrito = JSON.parse(localStorage.getItem('carrito'))
-        actualizarCarrito()
-    }
-})
- */
-
 //JSON GET
 //operador avanzado if
 document.addEventListener('DOMContentLoaded', () => {
 localStorage.getItem('carrito')? (carrito = JSON.parse(localStorage.getItem('carrito')), actualizarCarrito()): null
 })
-
-
-
 
 //Inyecto HTML al DOM
 Productos.forEach((producto) => {
@@ -61,26 +48,21 @@ Productos.forEach((producto) => {
 //Boton para agregar al carrito
     const boton = document.querySelector(`#agregar${producto.id}`)
     boton.addEventListener("click", () => {
-        agregarAlCarrito(producto.id)
+        agregarAlCarrito(producto.id);
+        Toastify({
+            text: "Añadido al carrito",
+            duration: 3000,
+            gravity: 'bottom',
+            position: 'right'
+        }).showToast();
     }); 
-
 }); 
 
 
-//Func para agregar al carrito (Valga la redundancia)
+//Función para agregar al carrito (Valga la redundancia)
 const agregarAlCarrito = (prodID) =>{
 //Verifica si no se ha añadido el mismo producto anteriormente
     const existe = carrito.some(prod => prod.id === prodID)
-/*  if (existe) {
-        const prod = carrito.map (prod => {
-            if (prod.id === prodID){
-                prod.cant++
-            }
-        })
-    }else{
-        const item = Productos.find ((producto) => producto.id === prodID)
-        carrito.push(item)
-    }  */
     //defino las variables antes porque dentro del operador ternario no me deja
     let prod;
     let item;
@@ -120,8 +102,49 @@ const actualizarCarrito = () => {
 
 //Vacía TOTALMENTE el carrito
 botonVaciar.addEventListener("click",()=>{
-    carrito.length = 0
-    contadorCarrito.innerText = 0
-    precioTotal.innerText = 0
-    actualizarCarrito()
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: '¿Estás seguro de querer vaciar el carrito?',
+            text: "Despues de acptar no habrá vuelta atrás!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si, vaciar!',
+            cancelButtonText: 'No, era joda!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+            swalWithBootstrapButtons.fire(
+                'Vaciado!',
+                'Tu carrito fue devalijado 😱',
+                'success',
+                
+            )
+                carrito.length = 0
+                contadorCarrito.innerText = 0
+                precioTotal.innerText = 0
+                actualizarCarrito()
+        } else if (
+          /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+            swalWithBootstrapButtons.fire(
+            'Todo joya! 🤙',
+            'tu carrito está a salvo :)',
+            'error'
+        )
+        }
+    })
+
+
+
+
+
+   
 })
