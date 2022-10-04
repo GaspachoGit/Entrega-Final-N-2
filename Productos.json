@@ -1,0 +1,8 @@
+[
+    {"id":1, "nombre": "Cortina 1", "precio": 5500, "stock": 5, "descripcion":"Roja, 2x4m", "tipo" :"cortina", "img": "imagenes/cortinas/cortina1.jpg", "cant":1},
+    {"id":2, "nombre": "Cortina 2", "precio": 27500, "stock": 0, "descripcion":"Celeste, 2.5x4m", "tipo" :"cortina", "img": "imagenes/cortinas/cortina2.jpg", "cant":1},
+    {"id":3, "nombre": "Cortina 3", "precio": 1850, "stock": 6, "descripcion":"Gris 2.5x3m", "tipo" :"cortina", "img": "imagenes/cortinas/cortina3.jpg", "cant":1},
+    {"id":4, "nombre": "Mantel 1", "precio": 2350, "stock": 8, "descripcion":"Blanco, 3x2m", "tipo": "mantel", "img": "imagenes/manteles/mantel1.jpg", "cant":1},
+    {"id":5, "nombre": "Mantel 2", "precio": 2850, "stock": 3, "descripcion":"Cuadriculado 3x2m", "tipo": "mantel", "img": "imagenes/manteles/mantel2.jpg", "cant":1},
+    {"id":6, "nombre": "Mantel 3", "precio": 23500, "stock": 2, "descripcion":"Gris 3x2m", "tipo": "mantel", "img": "imagenes/manteles/mantel3.jpg", "cant":1}
+]
