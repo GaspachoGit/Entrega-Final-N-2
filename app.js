@@ -14,7 +14,7 @@ localStorage.getItem('carrito')? (carrito = JSON.parse(localStorage.getItem('car
 })
 
 //Inyecto HTML al DOM
-fetch("Productos.json")
+fetch("./Productos.json")
     .then((resp)=>resp.json())
     .then((Productos)=>{
         Productos.forEach((producto)=>{
